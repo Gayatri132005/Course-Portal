@@ -1,13 +1,14 @@
+require('dotenv').config(); // ✅ Add this at the top
+
 const express = require('express');
-const cors = require('cors'); // ✅ Import cors
+const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
 
 const app = express();
-const router = express.Router();
 
 // ✅ Use CORS
-app.use(cors()); // You can configure it too if needed
+app.use(cors());
 
 // File upload middleware
 app.use(fileUpload({
@@ -19,8 +20,8 @@ app.use(fileUpload({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// MongoDB connection
-mongoose.connect('mongodb+srv://gayatrikotwal13:gayatrikotwal13@cluster0.yikfgic.mongodb.net/collabDB')
+// ✅ Use Mongo URI from .env
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ Connected to MongoDB"))
   .catch(err => console.error('❌ Database connection error:', err));
 
@@ -35,7 +36,7 @@ app.use('/course', courseRoute);
 app.use('/student', studentRoute);
 app.use('/fee', feeRoute);
 
-// Catch-all 404
+// 404 handler
 app.use((req, res) => {
   res.status(404).json({ msg: 'Route not found' });
 });
