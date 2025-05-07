@@ -3,16 +3,18 @@ import { useParams, useNavigate } from 'react-router-dom';
 import '../components/style.css';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+
 export const StudentDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [student, setStudent] = useState({});
     const [paymentList, setPaymentList] = useState([]);
     const [course, setCourse] = useState({});
+
     useEffect(() => {
         const getStudentDetail = () => {
             axios
-                .get(`http://localhost:4200/student/student-detail/${id}`, {
+                .get(`https://course-portal-3.onrender.com/student/student-detail/${id}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
@@ -21,9 +23,7 @@ export const StudentDetail = () => {
                     console.log(res.data);
                     setStudent(res.data.studentDetail);
                     setPaymentList(res.data.feeDetail);
-                    console.log(res.data.payment);
-  
-                    setCourse(res.data.courseDetail)
+                    setCourse(res.data.courseDetail);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -33,37 +33,43 @@ export const StudentDetail = () => {
         getStudentDetail();
     }, [id]);
 
-     const deleteStudent = (studentId) => {
+    const deleteStudent = (studentId) => {
         if (window.confirm("Are you sure you want to delete?")) {
-          axios
-            .delete(`http://localhost:4200/student/${studentId}`, {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-              },
-            })
-            .then((res) => {
-              console.log(res.data);
-              navigate('/dashboard/course-detail/'+course._id); // Redirect after successful deletion
-              toast.success("Student Data deleted successfully");
-            })
-            .catch((err) => {
-              console.error(err);
-              toast.error("Something went wrong...");
-            });
+            axios
+                .delete(`https://course-portal-3.onrender.com/student/${studentId}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                })
+                .then((res) => {
+                    console.log(res.data);
+                    navigate('/dashboard/course-detail/' + course._id);
+                    toast.success("Student Data deleted successfully");
+                })
+                .catch((err) => {
+                    console.error(err);
+                    toast.error("Something went wrong...");
+                });
         }
-      };
+    };
+
     return (
         <div className="student-detail-main-wrapper">
             <div className="student-detail-wrapper">
                 <div className="student-detail-header">
                     <h2>Student Full Detail</h2>
                     <div className="sd-btn-container">
-                        <button className="btn-edit"
-                            onClick={() => navigate(`/dashboard/update-student/${student._id}`, { state: { student } })}
+                        <button
+                            className="btn-edit"
+                            onClick={() =>
+                                navigate(`/dashboard/update-student/${student._id}`, { state: { student } })
+                            }
                         >
                             Edit
                         </button>
-                        <button className="btn-delete" onClick={()=> deleteStudent(student._id)}>Delete</button>
+                        <button className="btn-delete" onClick={() => deleteStudent(student._id)}>
+                            Delete
+                        </button>
                     </div>
                 </div>
                 <div className="sd-detail">
@@ -87,7 +93,7 @@ export const StudentDetail = () => {
             <div className="fee-detail-wrapper">
                 <table className="payment-table">
                     <thead>
-                        <tr> {/* ✅ you missed <tr> inside <thead> */}
+                        <tr>
                             <th>Date and Time</th>
                             <th>Amount</th>
                             <th>Remark</th>
@@ -104,7 +110,6 @@ export const StudentDetail = () => {
                     </tbody>
                 </table>
             </div>
-
         </div>
     );
 };

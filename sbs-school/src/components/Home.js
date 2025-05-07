@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import "../components/style.css";
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -19,7 +19,7 @@ export const Home = () => {
 
   const getHomeDetails = () => {
     axios
-      .get(`http://localhost:4200/course/home`, {
+      .get(`https://course-portal-3.onrender.com/course/home`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

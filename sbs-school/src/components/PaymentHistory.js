@@ -1,39 +1,37 @@
-
 import '../components/style.css';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import React, { useState, useEffect } from 'react';
+
 export const PaymentHistory = () => {
     const [paymentList, setPaymentList] = useState([]);
+
     useEffect(() => {
         getPaymentHistory();
-    }, [])
-
+    }, []);
 
     const getPaymentHistory = () => {
         axios
-            .get(`http://localhost:4200/fee/payment-history`, {
+            .get(`https://course-portal-3.onrender.com/fee/payment-history`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
             })
             .then((res) => {
                 console.log(res.data);
-
                 setPaymentList(res.data.paymentHistory.reverse());
-
-
             })
             .catch((err) => {
                 console.log(err);
                 toast.error('Something went wrong...');
             });
     };
+
     return (
         <div className="payment">
             <table className="payment-table">
                 <thead>
-                    <tr> {/* ✅ you missed <tr> inside <thead> */}
+                    <tr>
                         <th>Student's Name</th>
                         <th>Date and Time</th>
                         <th>Amount</th>
@@ -52,6 +50,7 @@ export const PaymentHistory = () => {
                 </tbody>
             </table>
         </div>
-    )
-}
+    );
+};
+
 export default PaymentHistory;

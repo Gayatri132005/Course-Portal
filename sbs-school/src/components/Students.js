@@ -1,28 +1,24 @@
-
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import "../components/style.css";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
 export const Students = () => {
-
   const [studentList, setStudentList] = useState([]);
-
-
   const navigate = useNavigate();
+
   useEffect(() => {
     getStudentList();
-  }, [])
+  }, []);
 
   const getStudentList = () => {
-    axios.get(`http://localhost:4200/student/all-students`, {
+    axios.get(`https://course-portal-3.onrender.com/student/all-students`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     })
       .then(res => {
-
         console.log(res.data);
         setStudentList(res.data.students);
       })
@@ -35,8 +31,6 @@ export const Students = () => {
   return (
     <div>
       <div className="student">
-
-
         {studentList.length > 0 ? (
           <div className="studentList-container">
             <table className="student-table">
@@ -50,7 +44,7 @@ export const Students = () => {
               </thead>
               <tbody>
                 {studentList.map((student) => (
-                  <tr key={student._id} onClick={() => { navigate('/dashboard/student-detail/' + student._id) }}>
+                  <tr key={student._id} onClick={() => navigate('/dashboard/student-detail/' + student._id)}>
                     <td data-label="Student Pic">
                       <img
                         src={student.imageUrl || 'https://via.placeholder.com/80'}
@@ -71,9 +65,8 @@ export const Students = () => {
           <p>No students enrolled yet.</p>
         )}
       </div>
-
     </div>
-  )
-}
+  );
+};
 
 export default Students;

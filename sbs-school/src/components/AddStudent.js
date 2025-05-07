@@ -43,7 +43,7 @@ export const AddStudents = () => {
   }, [student]);
 
   const getCourses = () => {
-    axios.get("http://localhost:4200/course/all-courses", {
+    axios.get("https://course-portal-3.onrender.com/course/all-courses", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -78,11 +78,11 @@ export const AddStudents = () => {
 
     if (isEditing) {
       axios
-        .put(`http://localhost:4200/student/${studentId}`, formData, config)
+        .put(`https://course-portal-3.onrender.com/student/${studentId}`, formData, config)
         .then(res => {
           setLoading(false);
           toast.success("Student updated successfully!");
-          navigate(`/dashboard/student-detail/${studentId}`); // ✅ Navigate after editing
+          navigate(`/dashboard/student-detail/${studentId}`);
         })
         .catch(err => {
           setLoading(false);
@@ -91,11 +91,11 @@ export const AddStudents = () => {
         });
     } else {
       axios
-        .post("http://localhost:4200/student/add-student", formData, config)
+        .post("https://course-portal-3.onrender.com/student/add-student", formData, config)
         .then(res => {
           setLoading(false);
           toast.success("New student added.");
-          navigate("/dashboard/students");// ✅ Navigate after adding
+          navigate("/dashboard/students");
         })
         .catch(err => {
           setLoading(false);

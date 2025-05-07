@@ -19,18 +19,16 @@ export const AddCourses = () => {
   const isEditing = location.state && location.state.course;
   const courseId = isEditing ? location.state.course._id : null;
 
-  // Pre-fill form if editing
   useEffect(() => {
     if (isEditing) {
       const course = location.state.course;
-      setCourseName(course.courseName );
-      setDescription(course.description );
+      setCourseName(course.courseName);
+      setDescription(course.description);
       setPrice(course.price);
       setStartingDate(course.startingDate);
-      setEndDate(course.endDate );
+      setEndDate(course.endDate);
       setImageUrl(course.imageUrl);
-    }
-    else{
+    } else {
       setCourseName("");
       setDescription("");
       setPrice(0);
@@ -68,13 +66,13 @@ export const AddCourses = () => {
         }
       };
 
+      const baseUrl = "https://course-portal-3.onrender.com";
+
       if (isEditing) {
-        // UPDATE Course
-        await axios.put(`http://localhost:4200/course/${courseId}`, formData, config);
+        await axios.put(`${baseUrl}/course/${courseId}`, formData, config);
         toast.success("Course updated successfully!");
       } else {
-        // ADD Course
-        await axios.post("http://localhost:4200/course/add-course", formData, config);
+        await axios.post(`${baseUrl}/course/add-course`, formData, config);
         toast.success("Course added successfully!");
       }
 

@@ -4,47 +4,38 @@ import "../components/style.css";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-export const Login= () => {
-
+export const Login = () => {
   const [email, setEmail] = useState("");
- 
   const [password, setPassword] = useState('');
- 
- const [isLoading, setLoading]=useState(false);
+  const [isLoading, setLoading] = useState(false);
 
-
-
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const submithandler = (event) => {
     event.preventDefault();
-  setLoading(true);
-    
-     
+    setLoading(true);
 
-    axios.post("http://localhost:4200/user/login",{
-       email:email,
-       password:password
+    axios.post("https://course-portal-3.onrender.com/user/login", {
+      email: email,
+      password: password
     })
       .then(res => {
-         setLoading(false);
-        localStorage.setItem('token',res.data.token)
-        localStorage.setItem('fullName',res.data.fullName)
-        localStorage.setItem('imageUrl',res.data.imageUrl)
-        localStorage.setItem('imageId',res.data.imageId)
-        localStorage.setItem('email',res.data.email)
-          navigate('/dashboard')
+        setLoading(false);
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('fullName', res.data.fullName);
+        localStorage.setItem('imageUrl', res.data.imageUrl);
+        localStorage.setItem('imageId', res.data.imageId);
+        localStorage.setItem('email', res.data.email);
+        navigate('/dashboard');
         console.log("Server response:", res.data);
       })
       .catch(err => {
-         setLoading(false)
-         toast.error("something is wrong");
-
-        console.error(" Error during signup:", err);
+        setLoading(false);
+        toast.error("Something is wrong");
+        console.error("Error during login:", err);
       });
   };
 
-  
   return (
     <div className="signup-wrapper">
       <div className="signup-box">
@@ -53,22 +44,28 @@ export const Login= () => {
         </div>
         <div className="signup-right">
           <form onSubmit={submithandler} className="form">
-            <h1>Login With  Account</h1>
-           
-            <input required
+            <h1>Login With Account</h1>
+
+            <input
+              required
               onChange={e => setEmail(e.target.value)}
               type="email"
               placeholder="Email"
               value={email}
             />
-           
-            <input  required
+
+            <input
+              required
               onChange={e => setPassword(e.target.value)}
               type="password"
               placeholder="Password"
               value={password}
             />
-            <button type="submit">{isLoading &&<i class="fas fa-spinner fa-pulse"></i>}Submit</button>
+
+            <button type="submit">
+              {isLoading && <i className="fas fa-spinner fa-pulse"></i>} Submit
+            </button>
+
             <Link className="link" to="/signup">Create your Account</Link>
           </form>
         </div>
