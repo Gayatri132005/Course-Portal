@@ -3,7 +3,7 @@ const router = express.Router();
 const cloudinary = require('cloudinary').v2;
 require('dotenv').config();
 const User = require("../model/User");
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
