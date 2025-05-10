@@ -92,14 +92,14 @@ PORT=5000
 
 ## 📷 Screenshots
 
-![alt text](<React App - Profile 1 - Microsoft​ Edge 10-05-2025 02_19_44 PM.png>)
+(<React App - Profile 1 - Microsoft​ Edge 10-05-2025 02_19_44 PM.png>)
 
-![alt text](<React App - Profile 1 - Microsoft​ Edge 10-05-2025 02_20_20 PM.png>)
+(<React App - Profile 1 - Microsoft​ Edge 10-05-2025 02_20_20 PM.png>)
 
 
-![alt text](<React App - Profile 1 - Microsoft​ Edge 10-05-2025 02_20_32 PM.png>)
+(<React App - Profile 1 - Microsoft​ Edge 10-05-2025 02_20_32 PM.png>)
 
-![alt text](<React App - Profile 1 - Microsoft​ Edge 10-05-2025 02_20_42 PM.png>)
+(<React App - Profile 1 - Microsoft​ Edge 10-05-2025 02_20_42 PM.png>)
 
 
 ## 🧑‍💻 Author
